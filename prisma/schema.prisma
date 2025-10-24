@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FormSubmission {
+  id                          String   @id @default(cuid())
+  
+  // Biodata Murid
+  nisn                        String?
+  namaPesertaDidik            String
+  jenisKelamin                String? // L/P
+  nik                         String?
+  noKK                        String?
+  tempatLahir                 String?
+  tanggalLahir                String?
+  statusDalamKeluarga         String? // Anak kandung/Anak angkat
+  anakKe                      Int?
+  jumlahSaudara               Int?
+  noHpWa                      String?
+  alamatTinggal               String?
+  desaKelurahan               String?
+  kecamatan                   String?
+  kotaKabupaten               String?
+  provinsi                    String?
+  tinggalDi                   String? // Rumah orang tua/Rumah kontrak/Rumah kerabat/Asrama pesantren/Panti asuhan/Lainnya
+  transportasiKeSekolah       String? // Jalan kaki/Sepeda/Sepeda motor/Angkutan umum/Lainnya
+  namaSekolahAsal             String?
+  alamatSekolahAsal           String?
+  tpqTpaJilid                 String?
+  tpqTpaLulus                 String?
+  madinUla                    String?
+  madinWustha                 String?
+  madinUlya                   String?
+  madinLulus                  String?
+  
+  // Informasi Prestasi
+  prestasiAkademik            String?
+  prestasiNonAkademik         String?
+  
+  // Identitas Ayah/Wali
+  namaAyahWali                String?
+  nikAyahWali                 String?
+  noHpWaAyahWali              String?
+  pendidikanTerakhirAyahWali  String?
+  pekerjaanAyahWali           String?
+  rerataPenghasilanAyahWali   String?
+  
+  // Identitas Ibu/Wali
+  namaIbuWali                 String?
+  nikIbuWali                  String?
+  noHpWaIbuWali               String?
+  pendidikanTerakhirIbuWali   String?
+  pekerjaanIbuWali            String?
+  rerataPenghasilanIbuWali    String?
+  
+  // Keterangan Tambahan
+  namaWali                    String?
+  pekerjaanWali               String?
+  nomorKIP                    String?
+  nomorKKS                    String?
+  nomorPKH                    String?
+  diterimaDiKelas             String?
+  tanggalDiterima             String?
+  
+  // Pemilihan Program Unggulan
+  programTahfidz              Boolean  @default(false)
+  programBilingualSains       Boolean  @default(false)
+  programQiroatulKutub        Boolean  @default(false)
+  
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   // Hashed password
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
